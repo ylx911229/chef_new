@@ -1,6 +1,6 @@
 {
   "name": "chef-recipe-mcp-server",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MCP server for searching Chinese recipes",
   "main": "dist/index.js",
   "type": "module",
@@ -29,12 +29,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-username/chef-recipe-mcp-server.git"
+    "url": "git+https://github.com/ylx911229/chef_new.git"
   },
   "bugs": {
-    "url": "https://github.com/your-username/chef-recipe-mcp-server/issues"
+    "url": "https://github.com/ylx911229/chef_new/issues"
   },
-  "homepage": "https://github.com/your-username/chef-recipe-mcp-server#readme",
+  "homepage": "https://github.com/ylx911229/chef_new#readme",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^0.4.0",
     "node-fetch": "^3.3.2",
