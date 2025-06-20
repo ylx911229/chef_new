@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>老式锅包肉制作方法</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #e74c3c;
+            text-decoration: none;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #e74c3c;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #e74c3c;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #e74c3c, #f39c12);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+        }
+
+        /* Sections */
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #e74c3c, #f39c12);
+            border-radius: 2px;
+        }
+
+        /* Ingredients Section */
+        .ingredients {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .ingredients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .ingredient-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .ingredient-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .ingredient-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .ingredient-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            display: block;
+            border: 4px solid #f8f9fa;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .ingredient-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #e74c3c;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .ingredient-amount {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Steps Section */
+        .steps {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .steps-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .step {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid #f39c12;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.5s ease;
+        }
+
+        .step.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .step:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #e74c3c, #f39c12);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .step-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin: 1rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .step-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #f39c12;
+        }
+
+        .step-description {
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Tips Section */
+        .tips {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .tips-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .tip-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .tip-item:last-child {
+            border-bottom: none;
+        }
+
+        .tip-item::before {
+            content: '💡';
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Scroll Progress */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(45deg, #e74c3c, #f39c12);
+            z-index: 1001;
+            transition: width 0.3s ease;
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #e74c3c, #f39c12);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(231, 76, 60, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .fab:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(231, 76, 60, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .ingredients-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+
+    <!-- Header -->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="#" class="logo">🥢 锅包肉</a>
+            <ul class="nav-links">
+                <li><a href="#ingredients">食材</a></li>
+                <li><a href="#steps">制作步骤</a></li>
+                <li><a href="#tips">小贴士</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>老式锅包肉</h1>
+            <p>东北经典名菜，酸甜酥脆，色泽金黄</p>
+            <a href="#ingredients" class="btn">开始制作</a>
+        </div>
+    </section>
+
+    <!-- Ingredients Section -->
+    <section class="section ingredients" id="ingredients">
+        <div class="container">
+            <h2 class="section-title">精选食材</h2>
+            <div class="ingredients-grid" id="ingredients-grid">
+                <!-- 动态生成食材卡片 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Steps Section -->
+    <section class="section steps" id="steps">
+        <div class="container">
+            <h2 class="section-title">制作步骤</h2>
+            <div class="steps-container" id="steps-container">
+                <!-- 动态生成步骤 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Tips Section -->
+    <section class="section tips" id="tips">
+        <div class="container">
+            <h2 class="section-title">制作小贴士</h2>
+            <div class="tips-content">
+                <div class="tip-item">肉片厚度应为 8mm，过厚过薄都会影响口感</div>
+                <div class="tip-item">炸制时控制油温，避免外壳过深或不酥脆</div>
+                <div class="tip-item">熬糖醋汁时，注意熬至粘稠但不结块，避免变成糖浆</div>
+                <div class="tip-item">小苏打的使用可以让肉质更加嫩滑</div>
+                <div class="tip-item">三次炸制的温度控制是关键，分别为150℃、170℃、200℃</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 锅包肉制作指南. 传承东北美食文化</p>
+        </div>
+    </footer>
+
+    <!-- Floating Action Button -->
+    <button class="fab" onclick="scrollToTop()">↑</button>
+
+    <script>
+        // 食材数据
+        const ingredients = [
+            { name: '猪通脊肉', amount: '300g', image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2Fea89ea27-cc3e-48a7-b926-afb3a51b2add.jpeg?Expires=1750411296&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=USKVRmqZ0SML%2FesqES%2FYL5yPmns%3D' },
+            { name: '大葱', amount: '50g', image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2F1b940e47-5fe5-492a-8dcb-9d666861978d.jpeg?Expires=1750411321&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=ex5qmXZP8kc2Ijp3Bec3Pw9D8es%3D' },
+            { name: '姜', amount: '30g', image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2F2149e8c6-1af5-40b2-8276-75753c6544bd.jpeg?Expires=1750411354&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=DWamgPs%2BKyGZVn0dXtORnDR%2B5o8%3D' },
+            { name: '蒜', amount: '3-4瓣', image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2Fd7742495-ffb4-4409-a7b9-e32e87d9bb4c.jpeg?Expires=1750411379&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=xdVbdUBs1l1hDPLtA2X2rEkymi4%3D' },
+            { name: '胡萝卜', amount: '10g', image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2F2a0a4e52-b806-424c-a3ed-88a5509df4f7.jpeg?Expires=1750411405&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=kHq9Fj8LbdXYJNabcEZNKmxDwLg%3D' },
+            { name: '香菜', amount: '10g', image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2F7a74486d-539b-4df4-9060-b5dbed660153.jpeg?Expires=1750411448&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=wAggpc610475GzjjqPE7CWm3eNQ%3D' },
+            { name: '白熟芝麻', amount: '5g', image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2Fe272a7a9-01b7-4288-939d-0aa2a0a348af.jpeg?Expires=1750411478&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=Z5LxtwMhtfQHnTKaVsPd6tS6wg0%3D' },
+            { name: '白醋', amount: '40g', image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2F894e101e-473a-4251-8af4-519934d9124e.jpeg?Expires=1750411517&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=VCNAUxABcvGP0qaJFFRKlZqSG%2BA%3D' },
+            { name: '白糖', amount: '40g', image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2F5186d45b-dc65-4a2c-adab-0f60983150ed.jpeg?Expires=1750411585&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=efABaAEMJEhzK4dD%2FPeUgqJt1ZY%3D' },
+            { name: '土豆淀粉', amount: '210g', image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2F94be1b8b-6086-4b35-941b-d5f069af3c6f.jpeg?Expires=1750411612&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=JOCcmsnyx1VUrZDTb4TeTpz7S8Q%3D' },
+            { name: '中筋面粉', amount: '70g', image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2Fcb2751e7-d6c1-45e7-b134-93f7e62e9f56.jpeg?Expires=1750411647&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=CBqkjDqgIxbz5t2QZpjaIsdySSk%3D' },
+            { name: '料酒', amount: '20ml', image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2F17bba3e2-dea2-4fa4-8263-f8849d77489d.jpeg?Expires=1750411674&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=S5p0irIwiSdIZCNjTUSt0Fp4orM%3D' },
+            { name: '盐', amount: '8g', image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2F30317723-6c97-4fda-93e2-6c05d57da538.jpeg?Expires=1750411706&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=I3W15NhTsXA%2FrWSQjwGWnmtSEVQ%3D' },
+            { name: '味精', amount: '5g', image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2F47a72ae5-00b0-4938-82b5-f8d0dd34fa8d.jpeg?Expires=1750411752&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=HDttJZUDe02%2BlQxEWW6%2FIIjXKFs%3D' },
+            { name: '小苏打', amount: '5g', image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2Fd4c47a37-3968-45a0-afa4-91c1b5ecb528.jpeg?Expires=1750411831&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=CSvWt8BCl4hJR2ObBRKNw6Qb9pM%3D' },
+            { name: '食用油', amount: '1000ml', image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2F6a465143-ae68-4992-b0d9-1be4b77e7b80.jpeg?Expires=1750411860&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=bNAhfFnqZ%2FBRA2UDHp8VdHsGPJo%3D' }
+        ];
+
+        // 制作步骤数据
+        const steps = [
+            {
+                title: '处理猪肉',
+                description: '将猪通脊肉切成厚度 8mm 的均匀肉片，去除白色筋膜。用清水冲洗肉片，去除血水。加入小苏打 5g，抓匀，静置 5 分钟。用清水冲洗 1-2 次，去除多余小苏打。',
+                image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2F1fd63c7b-de57-4417-875d-2aeaee61f472.jpeg?Expires=1750411897&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=npNgGggp9PIsingACqawJrHwfk8%3D'
+            },
+            {
+                title: '腌制肉片',
+                description: '在肉片中加入盐 4g、料酒 5ml，拌匀，腌制 15 分钟。',
+                image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2F86234cd3-88aa-48bf-804c-1aa61bae5d27.jpeg?Expires=1750411923&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=x5sZ8FOBfxXSSL5Z43nBcpsY2Yc%3D'
+            },
+            {
+                title: '准备挂浆',
+                description: '将土豆淀粉 210g 和中筋面粉 70g 混合。少量多次加入清水，搅拌至酸奶状，提起可拉丝，浆糊能在盆中堆积。加入食用油 10ml，小苏打 1g，搅拌均匀。',
+                image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2Fea509ac8-ad3d-448f-918b-edd7176bedc7.jpeg?Expires=1750411954&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=G%2FOHpUKC6YVE3xQChfDGW7QuG5c%3D'
+            },
+            {
+                title: '挂浆',
+                description: '将腌制好的肉片放入浆糊中，拌匀，使每片肉均匀裹上浆。',
+                image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2Fc00f356f-fc77-43d3-aeca-f00d854d4ad2.jpeg?Expires=1750411977&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=CkXWVAUgarkpjVougrb276j329I%3D'
+            },
+            {
+                title: '调制糖醋汁',
+                description: '混合白糖 40g、白醋 40g、盐 4g、味精 5g、米醋 5ml（可无），搅拌均匀，备用。',
+                image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2Fb02e3ccd-48f1-4d61-aeef-9222a8787bf3.jpeg?Expires=1750412010&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=%2FXILzw%2FviBB2L21DjhP0lUZnhSE%3D'
+            },
+            {
+                title: '准备配菜',
+                description: '大葱、姜、胡萝卜切丝，香菜切段，蒜切片。',
+                image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2F04b73d0f-88b5-437f-a6aa-640cbf4a000a.jpeg?Expires=1750412067&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=C5LyEcqvmW0s6yVotAonIiLtXX4%3D'
+            },
+            {
+                title: '第一次炸制',
+                description: '锅中加入食用油，加热至 150℃（五成热）。将肉片逐片放入油中，炸至表面定型，颜色浅黄，约 30 秒，捞出备用。',
+                image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2Fe79036da-f16e-469a-87f2-c9ff38d3173b.jpeg?Expires=1750412102&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=wFRrcAo8%2BpYSlJYGwtUzS3R9XSM%3D'
+            },
+            {
+                title: '第二次炸制',
+                description: '油温升至 170℃（六成热）。将所有肉片放入油中，炸至外壳金黄酥脆，约 1 分钟，捞出备用。',
+                image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2F0e0d7988-0061-4ca7-b421-b451d59bccc5.jpeg?Expires=1750412230&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=mOCt9EHVnUrE2S6FUSf%2FwtxeXhA%3D'
+            },
+            {
+                title: '炒制',
+                description: '锅中留 20ml 底油，加热后放入姜丝、蒜片，煸香 10 秒。倒入调好的糖醋汁，大火加热至沸腾，熬至汤汁粘稠，约 30-60 秒。',
+                image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2Faa7933ec-a839-4c03-b6f9-c2011c58980b.jpeg?Expires=1750412270&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=IkxMf1c9eWqQSMhhvZDUPccCRmg%3D'
+            },
+            {
+                title: '最后炒制',
+                description: '放入炸好的肉片、葱丝、胡萝卜丝、香菜段，快速翻炒 3 次，使汤汁均匀裹在肉片上。',
+                image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2F5d9b0f8c-933e-4f59-a9e6-417c33428f3e.jpeg?Expires=1750412348&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=rGkBr9AcCQyjpZ8avBQ2tyU8pk8%3D'
+            },
+            {
+                title: '出锅装盘',
+                description: '将锅包肉盛入盘中，撒上白熟芝麻（可无），即可上桌。',
+                image: 'https://hailuo-image-algeng-data.oss-cn-wulanchabu.aliyuncs.com/image_inference_output%2Ftalkie%2Fprod%2Fimg%2F2025-06-19%2Ffb26ad28-08c6-4ba4-90c2-f70dbcc28b7c.jpeg?Expires=1750412379&OSSAccessKeyId=LTAI5t5i98DA24TibFGGcX8h&Signature=WQlnOzwlKSOL9jyEuiGLk9yilzQ%3D'
+            }
+        ];
+
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', function() {
+            renderIngredients();
+            renderSteps();
+            initScrollEffects();
+            initIntersectionObserver();
+        });
+
+        // 渲染食材
+        function renderIngredients() {
+            const grid = document.getElementById('ingredients-grid');
+            ingredients.forEach((ingredient, index) => {
+                const card = document.createElement('div');
+                card.className = 'ingredient-card';
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.innerHTML = `
+                    <img src="${ingredient.image}" alt="${ingredient.name}" class="ingredient-image" loading="lazy">
+                    <div class="ingredient-name">${ingredient.name}</div>
+                    <div class="ingredient-amount">${ingredient.amount}</div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // 渲染步骤
+        function renderSteps() {
+            const container = document.getElementById('steps-container');
+            steps.forEach((step, index) => {
+                const stepElement = document.createElement('div');
+                stepElement.className = 'step';
+                stepElement.innerHTML = `
+                    <div class="step-number">${index + 1}</div>
+                    <div class="step-title">${step.title}</div>
+                    <img src="${step.image}" alt="${step.title}" class="step-image" loading="lazy">
+                    <div class="step-description">${step.description}</div>
+                `;
+                container.appendChild(stepElement);
+            });
+        }
+
+        // 初始化滚动效果
+        function initScrollEffects() {
+            window.addEventListener('scroll', () => {
+                const header = document.getElementById('header');
+                const scrollProgress = document.getElementById('scroll-progress');
+                
+                // Header效果
+                if (window.scrollY > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+
+                // 滚动进度条
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                scrollProgress.style.width = scrolled + '%';
+            });
+        }
+
+        // 初始化交叉观察器
+        function initIntersectionObserver() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            // 观察食材卡片
+            document.querySelectorAll('.ingredient-card').forEach(card => {
+                observer.observe(card);
+            });
+
+            // 观察步骤
+            document.querySelectorAll('.step').forEach(step => {
+                observer.observe(step);
+            });
+        }
+
+        // 回到顶部
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // 平滑滚动到锚点
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
