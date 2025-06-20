@@ -8,11 +8,33 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "tsx src/index.ts",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build",
+    "prepack": "npm run build",
+    "publish:patch": "npm version patch && npm publish",
+    "publish:minor": "npm version minor && npm publish",
+    "publish:major": "npm version major && npm publish",
+    "publish:beta": "npm version prerelease --preid=beta && npm publish --tag beta",
+    "publish:alpha": "npm version prerelease --preid=alpha && npm publish --tag alpha",
+    "release": "npm run prepublishOnly && npm publish"
   },
   "keywords": ["mcp", "server", "recipes", "chinese-food"],
   "author": "Chef MCP Server",
   "license": "MIT",
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "package.json",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-username/chef-recipe-mcp-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/chef-recipe-mcp-server/issues"
+  },
+  "homepage": "https://github.com/your-username/chef-recipe-mcp-server#readme",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^0.4.0",
     "node-fetch": "^3.3.2",
