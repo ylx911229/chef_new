@@ -1,9 +1,12 @@
 {
   "name": "chef-recipe-mcp-server",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "MCP server for searching Chinese recipes",
   "main": "dist/index.js",
   "type": "module",
+  "bin": {
+    "chef-recipe-mcp-server": "dist/index.js"
+  },
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
@@ -18,7 +21,12 @@
     "publish:alpha": "npm version prerelease --preid=alpha && npm publish --tag alpha",
     "release": "npm run prepublishOnly && npm publish"
   },
-  "keywords": ["mcp", "server", "recipes", "chinese-food"],
+  "keywords": [
+    "mcp",
+    "server",
+    "recipes",
+    "chinese-food"
+  ],
   "author": "Chef MCP Server",
   "license": "MIT",
   "files": [
@@ -37,15 +45,19 @@
   "homepage": "https://github.com/ylx911229/chef_new#readme",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^0.4.0",
-    "node-fetch": "^3.3.2",
-    "fuse.js": "^7.0.0"
+    "fuse.js": "^7.0.0",
+    "node-fetch": "^3.3.2"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",
-    "typescript": "^5.3.0",
-    "tsx": "^4.6.0"
+    "tsx": "^4.6.0",
+    "typescript": "^5.3.0"
   },
   "engines": {
     "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmmirror.com"
   }
-} 
+}

@@ -1,8 +1,8 @@
 {
   "mcpServers": {
     "chef-recipe": {
-      "command": "node",
-      "args": ["path/to/chef_new/dist/index.js"],
+      "command": "npx",
+      "args": ["chef-recipe-mcp-server"],
       "env": {},
       "cwd": "path/to/chef_new"
     }
